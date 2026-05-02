@@ -131,7 +131,7 @@ Arguments:
 - `json_folder`: translated `.json` files
 - `mes_folder`: original `.mes` files used as base
 - `mes_output`: output folder for rebuilt `.mes`
-- `-w`: wrap width (optional, default `67`)
+- `-w`: wrap width (optional, default `60`)  if 60 isn't enough you can change its value to fit textbox.
 
 Matching is done by filename:
 
