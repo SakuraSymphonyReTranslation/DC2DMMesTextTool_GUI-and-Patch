@@ -123,7 +123,7 @@ If output folder is omitted, defaults to `mes_folder\json_output`.
 ### 4) Batch Import (Folder) (JSON -> MES)
 
 ```powershell
-./DC2DMMesTextTool_GUI.exe batch-import "H:\path\json_folder" "H:\path\mes_folder" "H:\path\mes_output" -w 67
+./DC2DMMesTextTool_GUI.exe batch-import "H:\path\json_folder" "H:\path\mes_folder" "H:\path\mes_output" -w 60
 ```
 
 Arguments:
