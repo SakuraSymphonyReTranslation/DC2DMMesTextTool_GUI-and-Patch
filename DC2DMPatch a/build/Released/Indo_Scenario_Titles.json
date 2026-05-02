@@ -1,0 +1,914 @@
+[
+    {
+        "OriginalJapanese": "由夢との約束",
+        "TranslatedText": "Janji dengan Yume",
+        "OriginalOffset": "0x0006C010",
+        "OriginalVA": "0x0046D410"
+    },
+    {
+        "OriginalJapanese": "旅行報告",
+        "TranslatedText": "Laporan Perjalanan",
+        "OriginalOffset": "0x0006C02C",
+        "OriginalVA": "0x0046D42C"
+    },
+    {
+        "OriginalJapanese": "旅行プラン",
+        "TranslatedText": "Rencana Perjalanan",
+        "OriginalOffset": "0x0006C044",
+        "OriginalVA": "0x0046D444"
+    },
+    {
+        "OriginalJapanese": "連休の予定は？",
+        "TranslatedText": "Apa rencana libur panjangmu?",
+        "OriginalOffset": "0x0006C05C",
+        "OriginalVA": "0x0046D45C"
+    },
+    {
+        "OriginalJapanese": "愛の結晶",
+        "TranslatedText": "Buah Cinta",
+        "OriginalOffset": "0x0006C078",
+        "OriginalVA": "0x0046D478"
+    },
+    {
+        "OriginalJapanese": "裸エプロン",
+        "TranslatedText": "Apron Telanjang",
+        "OriginalOffset": "0x0006C090",
+        "OriginalVA": "0x0046D490"
+    },
+    {
+        "OriginalJapanese": "皆で迎える朝",
+        "TranslatedText": "Pagi yang disambut bersama semua orang",
+        "OriginalOffset": "0x0006C0A8",
+        "OriginalVA": "0x0046D4A8"
+    },
+    {
+        "OriginalJapanese": "珍妙な内容",
+        "TranslatedText": "Konten yang Aneh",
+        "OriginalOffset": "0x0006C0C4",
+        "OriginalVA": "0x0046D4C4"
+    },
+    {
+        "OriginalJapanese": "無難な内容",
+        "TranslatedText": "Konten yang Biasa Saja",
+        "OriginalOffset": "0x0006C0E0",
+        "OriginalVA": "0x0046D4E0"
+    },
+    {
+        "OriginalJapanese": "エッチな内容",
+        "TranslatedText": "Konten yang Mesum",
+        "OriginalOffset": "0x0006C0FC",
+        "OriginalVA": "0x0046D4FC"
+    },
+    {
+        "OriginalJapanese": "変な内容",
+        "TranslatedText": "Konten yang Ganjil",
+        "OriginalOffset": "0x0006C11C",
+        "OriginalVA": "0x0046D51C"
+    },
+    {
+        "OriginalJapanese": "無難な命令",
+        "TranslatedText": "Perintah yang Aman",
+        "OriginalOffset": "0x0006C138",
+        "OriginalVA": "0x0046D538"
+    },
+    {
+        "OriginalJapanese": "渉と買い出し",
+        "TranslatedText": "Belanja bersama Wataru",
+        "OriginalOffset": "0x0006C154",
+        "OriginalVA": "0x0046D554"
+    },
+    {
+        "OriginalJapanese": "ななかと買い出し",
+        "TranslatedText": "Belanja bersama Nanaka",
+        "OriginalOffset": "0x0006C174",
+        "OriginalVA": "0x0046D574"
+    },
+    {
+        "OriginalJapanese": "小恋と買い出し",
+        "TranslatedText": "Belanja bersama Koko",
+        "OriginalOffset": "0x0006C198",
+        "OriginalVA": "0x0046D598"
+    },
+    {
+        "OriginalJapanese": "１日の終わり",
+        "TranslatedText": "Akhir dari sebuah hari",
+        "OriginalOffset": "0x0006C1B8",
+        "OriginalVA": "0x0046D5B8"
+    },
+    {
+        "OriginalJapanese": "続く勝負",
+        "TranslatedText": "Pertandingan yang Berlanjut",
+        "OriginalOffset": "0x0006C1D4",
+        "OriginalVA": "0x0046D5D4"
+    },
+    {
+        "OriginalJapanese": "過激なゲーム",
+        "TranslatedText": "Permainan yang Ekstrem",
+        "OriginalOffset": "0x0006C1EC",
+        "OriginalVA": "0x0046D5EC"
+    },
+    {
+        "OriginalJapanese": "お泊まり会",
+        "TranslatedText": "Pesta Menginap",
+        "OriginalOffset": "0x0006C208",
+        "OriginalVA": "0x0046D608"
+    },
+    {
+        "OriginalJapanese": "帰島",
+        "TranslatedText": "Kembali ke Pulau",
+        "OriginalOffset": "0x0006C220",
+        "OriginalVA": "0x0046D620"
+    },
+    {
+        "OriginalJapanese": "夏休みの計画",
+        "TranslatedText": "Rencana Liburan Musim Panas",
+        "OriginalOffset": "0x0006C234",
+        "OriginalVA": "0x0046D634"
+    },
+    {
+        "OriginalJapanese": "あと一日で夏休み",
+        "TranslatedText": "Satu hari lagi menuju liburan musim panas",
+        "OriginalOffset": "0x0006C250",
+        "OriginalVA": "0x0046D650"
+    },
+    {
+        "OriginalJapanese": "山の中で……",
+        "TranslatedText": "Di tengah gunung...",
+        "OriginalOffset": "0x0006C270",
+        "OriginalVA": "0x0046D670"
+    },
+    {
+        "OriginalJapanese": "花火大会",
+        "TranslatedText": "Festival Kembang Api",
+        "OriginalOffset": "0x0006C28C",
+        "OriginalVA": "0x0046D68C"
+    },
+    {
+        "OriginalJapanese": "夜のデート",
+        "TranslatedText": "Kencan Malam Hari",
+        "OriginalOffset": "0x0006C2A4",
+        "OriginalVA": "0x0046D6A4"
+    },
+    {
+        "OriginalJapanese": "麻耶と美夏の今",
+        "TranslatedText": "Maya dan Minatsu Saat Ini",
+        "OriginalOffset": "0x0006C2BC",
+        "OriginalVA": "0x0046D6BC"
+    },
+    {
+        "OriginalJapanese": "ライブチャット",
+        "TranslatedText": "Live Chat",
+        "OriginalOffset": "0x0006C2D8",
+        "OriginalVA": "0x0046D6D8"
+    },
+    {
+        "OriginalJapanese": "懐かしき学生時代",
+        "TranslatedText": "Masa sekolah yang dirindukan",
+        "OriginalOffset": "0x0006C2F4",
+        "OriginalVA": "0x0046D6F4"
+    },
+    {
+        "OriginalJapanese": "もう３ヶ月",
+        "TranslatedText": "Sudah 3 bulan",
+        "OriginalOffset": "0x0006C314",
+        "OriginalVA": "0x0046D714"
+    },
+    {
+        "OriginalJapanese": "研修最後の日",
+        "TranslatedText": "Hari terakhir pelatihan",
+        "OriginalOffset": "0x0006C32C",
+        "OriginalVA": "0x0046D72C"
+    },
+    {
+        "OriginalJapanese": "共同戦線",
+        "TranslatedText": "Garis Depan Bersama",
+        "OriginalOffset": "0x0006C348",
+        "OriginalVA": "0x0046D748"
+    },
+    {
+        "OriginalJapanese": "課題と委員長",
+        "TranslatedText": "Tugas dan Ketua Kelas",
+        "OriginalOffset": "0x0006C360",
+        "OriginalVA": "0x0046D760"
+    },
+    {
+        "OriginalJapanese": "絶賛勉強中",
+        "TranslatedText": "Sedang belajar keras",
+        "OriginalOffset": "0x0006C37C",
+        "OriginalVA": "0x0046D77C"
+    },
+    {
+        "OriginalJapanese": "隣で見てて",
+        "TranslatedText": "Lihatlah dari sampingku",
+        "OriginalOffset": "0x0006C394",
+        "OriginalVA": "0x0046D794"
+    },
+    {
+        "OriginalJapanese": "気になるかも",
+        "TranslatedText": "Mungkin aku tertarik",
+        "OriginalOffset": "0x0006C3B0",
+        "OriginalVA": "0x0046D7B0"
+    },
+    {
+        "OriginalJapanese": "別にいいよ",
+        "TranslatedText": "Tidak apa-apa juga",
+        "OriginalOffset": "0x0006C3D0",
+        "OriginalVA": "0x0046D7D0"
+    },
+    {
+        "OriginalJapanese": "本とサンドイッチ",
+        "TranslatedText": "Buku dan Sandwich",
+        "OriginalOffset": "0x0006C3EC",
+        "OriginalVA": "0x0046D7EC"
+    },
+    {
+        "OriginalJapanese": "なんでゲーム？",
+        "TranslatedText": "Kenapa harus game?",
+        "OriginalOffset": "0x0006C40C",
+        "OriginalVA": "0x0046D80C"
+    },
+    {
+        "OriginalJapanese": "たかがゲーム？",
+        "TranslatedText": "Cuma sekadar game?",
+        "OriginalOffset": "0x0006C42C",
+        "OriginalVA": "0x0046D82C"
+    },
+    {
+        "OriginalJapanese": "俺に作れるのか？",
+        "TranslatedText": "Apakah aku bisa membuatnya?",
+        "OriginalOffset": "0x0006C44C",
+        "OriginalVA": "0x0046D84C"
+    },
+    {
+        "OriginalJapanese": "初めてのプログラム",
+        "TranslatedText": "Program pertama",
+        "OriginalOffset": "0x0006C470",
+        "OriginalVA": "0x0046D870"
+    },
+    {
+        "OriginalJapanese": "初仕事",
+        "TranslatedText": "Pekerjaan Pertama",
+        "OriginalOffset": "0x0006C490",
+        "OriginalVA": "0x0046D890"
+    },
+    {
+        "OriginalJapanese": "お風呂でリラックス",
+        "TranslatedText": "Bersantai di kamar mandi",
+        "OriginalOffset": "0x0006C4A4",
+        "OriginalVA": "0x0046D8A4"
+    },
+    {
+        "OriginalJapanese": "愛妻弁当",
+        "TranslatedText": "Bekal dari Istri Tercinta",
+        "OriginalOffset": "0x0006C4C4",
+        "OriginalVA": "0x0046D8C4"
+    },
+    {
+        "OriginalJapanese": "でこぴん",
+        "TranslatedText": "Sentilan dahi",
+        "OriginalOffset": "0x0006C4DC",
+        "OriginalVA": "0x0046D8DC"
+    },
+    {
+        "OriginalJapanese": "額にキス",
+        "TranslatedText": "Ciuman di dahi",
+        "OriginalOffset": "0x0006C4F8",
+        "OriginalVA": "0x0046D8F8"
+    },
+    {
+        "OriginalJapanese": "唇にキス",
+        "TranslatedText": "Ciuman di bibir",
+        "OriginalOffset": "0x0006C514",
+        "OriginalVA": "0x0046D914"
+    },
+    {
+        "OriginalJapanese": "俺の働く場所",
+        "TranslatedText": "Tempatku bekerja",
+        "OriginalOffset": "0x0006C530",
+        "OriginalVA": "0x0046D930"
+    },
+    {
+        "OriginalJapanese": "初出勤",
+        "TranslatedText": "Hari pertama kerja",
+        "OriginalOffset": "0x0006C54C",
+        "OriginalVA": "0x0046D94C"
+    },
+    {
+        "OriginalJapanese": "本島へ……",
+        "TranslatedText": "Ke pulau utama...",
+        "OriginalOffset": "0x0006C560",
+        "OriginalVA": "0x0046D960"
+    },
+    {
+        "OriginalJapanese": "クルーズ系アトラクション",
+        "TranslatedText": "Atraksi tipe pesiar",
+        "OriginalOffset": "0x0006C578",
+        "OriginalVA": "0x0046D978"
+    },
+    {
+        "OriginalJapanese": "観覧車",
+        "TranslatedText": "Bianglala",
+        "OriginalOffset": "0x0006C5A4",
+        "OriginalVA": "0x0046D9A4"
+    },
+    {
+        "OriginalJapanese": "ライド系アトラクション",
+        "TranslatedText": "Atraksi tipe wahana",
+        "OriginalOffset": "0x0006C5BC",
+        "OriginalVA": "0x0046D9BC"
+    },
+    {
+        "OriginalJapanese": "次の約束へ……",
+        "TranslatedText": "Menuju janji berikutnya...",
+        "OriginalOffset": "0x0006C5E4",
+        "OriginalVA": "0x0046D9E4"
+    },
+    {
+        "OriginalJapanese": "春の思い出作り",
+        "TranslatedText": "Membuat kenangan musim semi",
+        "OriginalOffset": "0x0006C600",
+        "OriginalVA": "0x0046DA00"
+    },
+    {
+        "OriginalJapanese": "春からの道",
+        "TranslatedText": "Jalan dari musim semi",
+        "OriginalOffset": "0x0006C61C",
+        "OriginalVA": "0x0046DA1C"
+    },
+    {
+        "OriginalJapanese": "お昼の約束",
+        "TranslatedText": "Janji di siang hari",
+        "OriginalOffset": "0x0006C634",
+        "OriginalVA": "0x0046DA34"
+    },
+    {
+        "OriginalJapanese": "朝からイチャイチャ",
+        "TranslatedText": "Bermesraan sejak pagi",
+        "OriginalOffset": "0x0006C64C",
+        "OriginalVA": "0x0046DA4C"
+    },
+    {
+        "OriginalJapanese": "初夜",
+        "TranslatedText": "Malam Pertama",
+        "OriginalOffset": "0x0006C66C",
+        "OriginalVA": "0x0046DA6C"
+    },
+    {
+        "OriginalJapanese": "バカ騒ぎの夜",
+        "TranslatedText": "Malam huru-hara",
+        "OriginalOffset": "0x0006C680",
+        "OriginalVA": "0x0046DA80"
+    },
+    {
+        "OriginalJapanese": "この日を忘れない",
+        "TranslatedText": "Takkan kulupakan hari ini",
+        "OriginalOffset": "0x0006C69C",
+        "OriginalVA": "0x0046DA9C"
+    },
+    {
+        "OriginalJapanese": "最強の三バカは最高の仲間",
+        "TranslatedText": "Tiga si bodoh terkuat adalah kawan terbaik",
+        "OriginalOffset": "0x0006C6BC",
+        "OriginalVA": "0x0046DABC"
+    },
+    {
+        "OriginalJapanese": "これからもずっと……",
+        "TranslatedText": "Mulai sekarang dan selamanya...",
+        "OriginalOffset": "0x0006C6E4",
+        "OriginalVA": "0x0046DAE4"
+    },
+    {
+        "OriginalJapanese": "みんなで食卓を囲む幸せ",
+        "TranslatedText": "Kebahagiaan berkumpul di meja makan bersama",
+        "OriginalOffset": "0x0006C708",
+        "OriginalVA": "0x0046DB08"
+    },
+    {
+        "OriginalJapanese": "永遠を誓う",
+        "TranslatedText": "Bersumpah setia selamanya",
+        "OriginalOffset": "0x0006C72C",
+        "OriginalVA": "0x0046DB2C"
+    },
+    {
+        "OriginalJapanese": "遊園地デート",
+        "TranslatedText": "Kencan di taman bermain",
+        "OriginalOffset": "0x0006C744",
+        "OriginalVA": "0x0046DB44"
+    },
+    {
+        "OriginalJapanese": "俺の妹様",
+        "TranslatedText": "Adik perempuanku tersayang",
+        "OriginalOffset": "0x0006C760",
+        "OriginalVA": "0x0046DB60"
+    },
+    {
+        "OriginalJapanese": "朝食は新婚気分で",
+        "TranslatedText": "Sarapan dengan suasana pengantin baru",
+        "OriginalOffset": "0x0006C778",
+        "OriginalVA": "0x0046DB78"
+    },
+    {
+        "OriginalJapanese": "喜びの音姫",
+        "TranslatedText": "Otome yang gembira",
+        "OriginalOffset": "0x0006C798",
+        "OriginalVA": "0x0046DB98"
+    },
+    {
+        "OriginalJapanese": "プロポーズに秘めた想い",
+        "TranslatedText": "Perasaan yang tersembunyi dalam lamaran",
+        "OriginalOffset": "0x0006C7B0",
+        "OriginalVA": "0x0046DBB0"
+    },
+    {
+        "OriginalJapanese": "ミスコンとプロポーズ",
+        "TranslatedText": "Kontes kecantikan dan lamaran",
+        "OriginalOffset": "0x0006C7D4",
+        "OriginalVA": "0x0046DBD4"
+    },
+    {
+        "OriginalJapanese": "卒パでデート",
+        "TranslatedText": "Kencan di pesta kelulusan",
+        "OriginalOffset": "0x0006C7F8",
+        "OriginalVA": "0x0046DBF8"
+    },
+    {
+        "OriginalJapanese": "ラスト卒パ",
+        "TranslatedText": "Pesta kelulusan terakhir",
+        "OriginalOffset": "0x0006C814",
+        "OriginalVA": "0x0046DC14"
+    },
+    {
+        "OriginalJapanese": "風見学園卒業",
+        "TranslatedText": "Lulus dari Akademi Kazami",
+        "OriginalOffset": "0x0006C82C",
+        "OriginalVA": "0x0046DC2C"
+    },
+    {
+        "OriginalJapanese": "卒業祝いの姉妹料理",
+        "TranslatedText": "Masakan kakak beradik merayakan kelulusan",
+        "OriginalOffset": "0x0006C848",
+        "OriginalVA": "0x0046DC48"
+    },
+    {
+        "OriginalJapanese": "夜の公園デート",
+        "TranslatedText": "Kencan di taman malam hari",
+        "OriginalOffset": "0x0006C868",
+        "OriginalVA": "0x0046DC68"
+    },
+    {
+        "OriginalJapanese": "パンフレット完成！",
+        "TranslatedText": "Pamflet selesai!",
+        "OriginalOffset": "0x0006C884",
+        "OriginalVA": "0x0046DC84"
+    },
+    {
+        "OriginalJapanese": "明日で完成させないと！",
+        "TranslatedText": "Harus selesai besok!",
+        "OriginalOffset": "0x0006C8A4",
+        "OriginalVA": "0x0046DCA4"
+    },
+    {
+        "OriginalJapanese": "まゆき参上",
+        "TranslatedText": "Mayuki muncul",
+        "OriginalOffset": "0x0006C8C8",
+        "OriginalVA": "0x0046DCC8"
+    },
+    {
+        "OriginalJapanese": "由夢と通学",
+        "TranslatedText": "Pergi sekolah bersama Yume",
+        "OriginalOffset": "0x0006C8E0",
+        "OriginalVA": "0x0046DCE0"
+    },
+    {
+        "OriginalJapanese": "ひなまつり",
+        "TranslatedText": "Hinamatsuri",
+        "OriginalOffset": "0x0006C8F8",
+        "OriginalVA": "0x0046DCF8"
+    },
+    {
+        "OriginalJapanese": "卒業式に出席します",
+        "TranslatedText": "Akan menghadiri upacara kelulusan",
+        "OriginalOffset": "0x0006C910",
+        "OriginalVA": "0x0046DD10"
+    },
+    {
+        "OriginalJapanese": "あっという間に",
+        "TranslatedText": "Dalam sekejap mata",
+        "OriginalOffset": "0x0006C930",
+        "OriginalVA": "0x0046DD30"
+    },
+    {
+        "OriginalJapanese": "美夏が様子を見に来た",
+        "TranslatedText": "Minatsu datang untuk melihat keadaan",
+        "OriginalOffset": "0x0006C94C",
+        "OriginalVA": "0x0046DD4C"
+    },
+    {
+        "OriginalJapanese": "ミスコンと委員長",
+        "TranslatedText": "Kontes kecantikan dan ketua kelas",
+        "OriginalOffset": "0x0006C970",
+        "OriginalVA": "0x0046DD70"
+    },
+    {
+        "OriginalJapanese": "朝倉姉妹と花より団子",
+        "TranslatedText": "Dango lebih baik dari bunga bersama Asakura bersaudara",
+        "OriginalOffset": "0x0006C990",
+        "OriginalVA": "0x0046DD90"
+    },
+    {
+        "OriginalJapanese": "ミスコンと雪月花",
+        "TranslatedText": "Kontes kecantikan dan Setsu-getsu-ka",
+        "OriginalOffset": "0x0006C9B4",
+        "OriginalVA": "0x0046DDB4"
+    },
+    {
+        "OriginalJapanese": "ななかの歌",
+        "TranslatedText": "Lagu Nanaka",
+        "OriginalOffset": "0x0006C9D4",
+        "OriginalVA": "0x0046DDD4"
+    },
+    {
+        "OriginalJapanese": "ななかミスコン出ない？",
+        "TranslatedText": "Nanaka tidak ikut kontes kecantikan?",
+        "OriginalOffset": "0x0006C9EC",
+        "OriginalVA": "0x0046DDEC"
+    },
+    {
+        "OriginalJapanese": "のんびりな日曜",
+        "TranslatedText": "Hari Minggu yang santai",
+        "OriginalOffset": "0x0006CA10",
+        "OriginalVA": "0x0046DE10"
+    },
+    {
+        "OriginalJapanese": "バレンタインの制服エッチ",
+        "TranslatedText": "Seks berseragam saat Valentine",
+        "OriginalOffset": "0x0006CA2C",
+        "OriginalVA": "0x0046DE2C"
+    },
+    {
+        "OriginalJapanese": "バレンタインプレゼント",
+        "TranslatedText": "Hadiah Valentine",
+        "OriginalOffset": "0x0006CA54",
+        "OriginalVA": "0x0046DE54"
+    },
+    {
+        "OriginalJapanese": "パンフ制作",
+        "TranslatedText": "Pembuatan pamflet",
+        "OriginalOffset": "0x0006CA78",
+        "OriginalVA": "0x0046DE78"
+    },
+    {
+        "OriginalJapanese": "バンドの想い出",
+        "TranslatedText": "Kenangan band",
+        "OriginalOffset": "0x0006CA90",
+        "OriginalVA": "0x0046DE90"
+    },
+    {
+        "OriginalJapanese": "エロエロサンドイッチ",
+        "TranslatedText": "Sandwich erotis",
+        "OriginalOffset": "0x0006CAAC",
+        "OriginalVA": "0x0046DEAC"
+    },
+    {
+        "OriginalJapanese": "杉並からの依頼",
+        "TranslatedText": "Permintaan dari Suginami",
+        "OriginalOffset": "0x0006CAD0",
+        "OriginalVA": "0x0046DED0"
+    },
+    {
+        "OriginalJapanese": "パンフ制作とエリカの内偵",
+        "TranslatedText": "Pembuatan pamflet dan pengintaian Erika",
+        "OriginalOffset": "0x0006CAEC",
+        "OriginalVA": "0x0046DEEC"
+    },
+    {
+        "OriginalJapanese": "負けるな雪合戦",
+        "TranslatedText": "Jangan kalah di perang bola salju",
+        "OriginalOffset": "0x0006CB14",
+        "OriginalVA": "0x0046DF14"
+    },
+    {
+        "OriginalJapanese": "杏の誕生日",
+        "TranslatedText": "Ulang tahun An",
+        "OriginalOffset": "0x0006CB30",
+        "OriginalVA": "0x0046DF30"
+    },
+    {
+        "OriginalJapanese": "進路の確認",
+        "TranslatedText": "Konfirmasi rencana masa depan",
+        "OriginalOffset": "0x0006CB48",
+        "OriginalVA": "0x0046DF48"
+    },
+    {
+        "OriginalJapanese": "杉並の犯行予告",
+        "TranslatedText": "Pemberitahuan kejahatan Suginami",
+        "OriginalOffset": "0x0006CB60",
+        "OriginalVA": "0x0046DF60"
+    },
+    {
+        "OriginalJapanese": "休日おさんぽデート",
+        "TranslatedText": "Kencan jalan-jalan di hari libur",
+        "OriginalOffset": "0x0006CB7C",
+        "OriginalVA": "0x0046DF7C"
+    },
+    {
+        "OriginalJapanese": "さくらへの想い",
+        "TranslatedText": "Perasaan kepada Sakura",
+        "OriginalOffset": "0x0006CB9C",
+        "OriginalVA": "0x0046DF9C"
+    },
+    {
+        "OriginalJapanese": "音姉とお風呂",
+        "TranslatedText": "Mandi bersama Otone",
+        "OriginalOffset": "0x0006CBB8",
+        "OriginalVA": "0x0046DFB8"
+    },
+    {
+        "OriginalJapanese": "エリカを手助け",
+        "TranslatedText": "Membantu Erika",
+        "OriginalOffset": "0x0006CBD4",
+        "OriginalVA": "0x0046DFD4"
+    },
+    {
+        "OriginalJapanese": "シェフのきまぐれ",
+        "TranslatedText": "Keinginan koki",
+        "OriginalOffset": "0x0006CBF0",
+        "OriginalVA": "0x0046DFF0"
+    },
+    {
+        "OriginalJapanese": "遅くなった夕食",
+        "TranslatedText": "Makan malam yang terlambat",
+        "OriginalOffset": "0x0006CC10",
+        "OriginalVA": "0x0046E010"
+    },
+    {
+        "OriginalJapanese": "パンフ内容会議その２",
+        "TranslatedText": "Rapat konten pamflet ke-2",
+        "OriginalOffset": "0x0006CC2C",
+        "OriginalVA": "0x0046E02C"
+    },
+    {
+        "OriginalJapanese": "パンフ内容会議その１",
+        "TranslatedText": "Rapat konten pamflet ke-1",
+        "OriginalOffset": "0x0006CC50",
+        "OriginalVA": "0x0046E050"
+    },
+    {
+        "OriginalJapanese": "パンフレットを作ろう",
+        "TranslatedText": "Mari membuat pamflet",
+        "OriginalOffset": "0x0006CC74",
+        "OriginalVA": "0x0046E074"
+    },
+    {
+        "OriginalJapanese": "風見学園を歩いてみた",
+        "TranslatedText": "Mencoba berjalan-jalan di Akademi Kazami",
+        "OriginalOffset": "0x0006CC98",
+        "OriginalVA": "0x0046E098"
+    },
+    {
+        "OriginalJapanese": "警戒するエリカ",
+        "TranslatedText": "Erika yang waspada",
+        "OriginalOffset": "0x0006CCBC",
+        "OriginalVA": "0x0046E0BC"
+    },
+    {
+        "OriginalJapanese": "寝たふり",
+        "TranslatedText": "Pura-pura tidur",
+        "OriginalOffset": "0x0006CCD8",
+        "OriginalVA": "0x0046E0D8"
+    },
+    {
+        "OriginalJapanese": "夕食時の語らい",
+        "TranslatedText": "Obrolan di waktu makan malam",
+        "OriginalOffset": "0x0006CCF0",
+        "OriginalVA": "0x0046E0F0"
+    },
+    {
+        "OriginalJapanese": "由夢と下校",
+        "TranslatedText": "Pulang sekolah bersama Yume",
+        "OriginalOffset": "0x0006CD0C",
+        "OriginalVA": "0x0046E10C"
+    },
+    {
+        "OriginalJapanese": "卒パと委員長",
+        "TranslatedText": "Pesta kelulusan dan ketua kelas",
+        "OriginalOffset": "0x0006CD24",
+        "OriginalVA": "0x0046E124"
+    },
+    {
+        "OriginalJapanese": "学園最後の学期スタート",
+        "TranslatedText": "Awal semester terakhir sekolah",
+        "OriginalOffset": "0x0006CD40",
+        "OriginalVA": "0x0046E140"
+    },
+    {
+        "OriginalJapanese": "新しいはじまり",
+        "TranslatedText": "Permulaan yang baru",
+        "OriginalOffset": "0x0006CD64",
+        "OriginalVA": "0x0046E164"
+    },
+    {
+        "OriginalJapanese": "起動中…",
+        "TranslatedText": "Memulai...",
+        "OriginalOffset": "0x0006CD98",
+        "OriginalVA": "0x0046E198"
+    },
+    {
+        "OriginalJapanese": "天枷研究所プログラム研修　課題９　リバーシ",
+        "TranslatedText": "Pelatihan Program Laboratorium Amakase, Tugas 9: Reversi",
+        "OriginalOffset": "0x0006CDA8",
+        "OriginalVA": "0x0046E1A8"
+    },
+    {
+        "OriginalJapanese": "天枷研究所プログラム研修　課題４　じゃんけんゲーム",
+        "TranslatedText": "Pelatihan Program Laboratorium Amakase, Tugas 4: Game Janken",
+        "OriginalOffset": "0x0006CDD4",
+        "OriginalVA": "0x0046E1D4"
+    },
+    {
+        "OriginalJapanese": "　　ＣＰＵ選択：グー＊回／チョキ＠回／パー％回",
+        "TranslatedText": "Pilihan CPU: Batu * kali / Gunting @ kali / Kertas % kali",
+        "OriginalOffset": "0x0006CE08",
+        "OriginalVA": "0x0046E208"
+    },
+    {
+        "OriginalJapanese": "プレイヤー選択：グー＊回／チョキ＠回／パー％回",
+        "TranslatedText": "Pilihan Pemain: Batu * kali / Gunting @ kali / Kertas % kali",
+        "OriginalOffset": "0x0006CE38",
+        "OriginalVA": "0x0046E238"
+    },
+    {
+        "OriginalJapanese": "《ＣＰＵ：パー》",
+        "TranslatedText": "<<CPU: Kertas>>",
+        "OriginalOffset": "0x0006CE74",
+        "OriginalVA": "0x0046E274"
+    },
+    {
+        "OriginalJapanese": "《ＣＰＵ：チョキ》",
+        "TranslatedText": "<<CPU: Gunting>>",
+        "OriginalOffset": "0x0006CE88",
+        "OriginalVA": "0x0046E288"
+    },
+    {
+        "OriginalJapanese": "《ＣＰＵ：グー》",
+        "TranslatedText": "<<CPU: Batu>>",
+        "OriginalOffset": "0x0006CE9C",
+        "OriginalVA": "0x0046E29C"
+    },
+    {
+        "OriginalJapanese": "《あなた：パー》",
+        "TranslatedText": "<<Anda: Kertas>>",
+        "OriginalOffset": "0x0006CEB0",
+        "OriginalVA": "0x0046E2B0"
+    },
+    {
+        "OriginalJapanese": "《あなた：チョキ》",
+        "TranslatedText": "<<Anda: Gunting>>",
+        "OriginalOffset": "0x0006CEC4",
+        "OriginalVA": "0x0046E2C4"
+    },
+    {
+        "OriginalJapanese": "《あなた：グー》",
+        "TranslatedText": "<<Anda: Batu>>",
+        "OriginalOffset": "0x0006CED8",
+        "OriginalVA": "0x0046E2D8"
+    },
+    {
+        "OriginalJapanese": "◆戦績",
+        "TranslatedText": "◆ Hasil Pertandingan",
+        "OriginalOffset": "0x0006CEEC",
+        "OriginalVA": "0x0046E2EC"
+    },
+    {
+        "OriginalJapanese": "黒:%02d 白:%02d 空き:%02d",
+        "TranslatedText": "Hitam:%02d Putih:%02d Kosong:%02d",
+        "OriginalOffset": "0x0006CF0C",
+        "OriginalVA": "0x0046E30C"
+    },
+    {
+        "OriginalJapanese": "手数：",
+        "TranslatedText": "Langkah:",
+        "OriginalOffset": "0x0006CFA0",
+        "OriginalVA": "0x0046E3A0"
+    },
+    {
+        "OriginalJapanese": "白：",
+        "TranslatedText": "Putih:",
+        "OriginalOffset": "0x0006CFA8",
+        "OriginalVA": "0x0046E3A8"
+    },
+    {
+        "OriginalJapanese": "黒：",
+        "TranslatedText": "Hitam:",
+        "OriginalOffset": "0x0006CFB4",
+        "OriginalVA": "0x0046E3B4"
+    },
+    {
+        "OriginalJapanese": "　　ＣＰＵ：白",
+        "TranslatedText": "CPU: Putih",
+        "OriginalOffset": "0x0006CFBC",
+        "OriginalVA": "0x0046E3BC"
+    },
+    {
+        "OriginalJapanese": "プレイヤー：黒",
+        "TranslatedText": "Pemain: Hitam",
+        "OriginalOffset": "0x0006CFCC",
+        "OriginalVA": "0x0046E3CC"
+    },
+    {
+        "OriginalJapanese": "　　ＣＰＵ：黒",
+        "TranslatedText": "CPU: Hitam",
+        "OriginalOffset": "0x0006CFDC",
+        "OriginalVA": "0x0046E3DC"
+    },
+    {
+        "OriginalJapanese": "プレイヤー：白",
+        "TranslatedText": "Pemain: Putih",
+        "OriginalOffset": "0x0006CFEC",
+        "OriginalVA": "0x0046E3EC"
+    },
+    {
+        "OriginalJapanese": "◆◆◆ＣＰＵ思考中◆◆",
+        "TranslatedText": "◆◆◆ CPU Berpikir ◆◆",
+        "OriginalOffset": "0x0006CFFC",
+        "OriginalVA": "0x0046E3FC"
+    },
+    {
+        "OriginalJapanese": "＞自分のターン",
+        "TranslatedText": "> Giliran Anda",
+        "OriginalOffset": "0x0006D014",
+        "OriginalVA": "0x0046E414"
+    },
+    {
+        "OriginalJapanese": "＞ＣＰＵのターン",
+        "TranslatedText": "> Giliran CPU",
+        "OriginalOffset": "0x0006D028",
+        "OriginalVA": "0x0046E428"
+    },
+    {
+        "OriginalJapanese": "＞パス",
+        "TranslatedText": "> Lewat",
+        "OriginalOffset": "0x0006D03C",
+        "OriginalVA": "0x0046E43C"
+    },
+    {
+        "OriginalJapanese": "＞引き分け",
+        "TranslatedText": "> Seri",
+        "OriginalOffset": "0x0006D044",
+        "OriginalVA": "0x0046E444"
+    },
+    {
+        "OriginalJapanese": "＞ＣＰＵの勝ち",
+        "TranslatedText": "> CPU Menang",
+        "OriginalOffset": "0x0006D050",
+        "OriginalVA": "0x0046E450"
+    },
+    {
+        "OriginalJapanese": "＞自分の勝ち",
+        "TranslatedText": "> Anda Menang",
+        "OriginalOffset": "0x0006D060",
+        "OriginalVA": "0x0046E460"
+    },
+    {
+        "OriginalJapanese": "相手:強い",
+        "TranslatedText": "Lawan: Kuat",
+        "OriginalOffset": "0x0006D070",
+        "OriginalVA": "0x0046E470"
+    },
+    {
+        "OriginalJapanese": "相手:普通",
+        "TranslatedText": "Lawan: Normal",
+        "OriginalOffset": "0x0006D07C",
+        "OriginalVA": "0x0046E47C"
+    },
+    {
+        "OriginalJapanese": "相手:弱い",
+        "TranslatedText": "Lawan: Lemah",
+        "OriginalOffset": "0x0006D088",
+        "OriginalVA": "0x0046E488"
+    },
+    {
+        "OriginalJapanese": "後手　白:ＣＰＵ",
+        "TranslatedText": "Kedua Putih: CPU",
+        "OriginalOffset": "0x0006D094",
+        "OriginalVA": "0x0046E494"
+    },
+    {
+        "OriginalJapanese": "先手　黒:自分",
+        "TranslatedText": "Pertama Hitam: Diri Sendiri",
+        "OriginalOffset": "0x0006D0A4",
+        "OriginalVA": "0x0046E4A4"
+    },
+    {
+        "OriginalJapanese": "後手　白:自分",
+        "TranslatedText": "Kedua Putih: Diri Sendiri",
+        "OriginalOffset": "0x0006D0B4",
+        "OriginalVA": "0x0046E4B4"
+    },
+    {
+        "OriginalJapanese": "先手　黒:ＣＰＵ",
+        "TranslatedText": "Pertama Hitam: CPU",
+        "OriginalOffset": "0x0006D0C4",
+        "OriginalVA": "0x0046E4C4"
+    }
+]

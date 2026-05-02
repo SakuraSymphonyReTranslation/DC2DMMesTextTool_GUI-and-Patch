@@ -26,6 +26,14 @@ Ready-to-use release output:
 
 - `DC2DMPatch a\build\Released`
 
+## Important: Custom Launcher Required
+
+To use this patch correctly, you must launch the game using the custom launcher:
+
+- `H:\Games\DC2DM\DC2DMMesTextTool_GUI and Patch\DC2DMPatch a\build\Released\DC2DMLauncher.exe`
+
+This patch is built to work with that launcher. Running the game directly from `DC2DM.EXE` may not load the patch properly.
+
 ## Features
 
 - GUI mode (double-click executable)
