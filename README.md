@@ -30,6 +30,9 @@ Ready-to-use release output:
 
 To use this patch correctly, you must launch the game using the custom launcher:
 
+For example - `H:\Games\DC2DM` is your game directory
+put - `DC2DMMesTextTool_GUI and Patch` or somewhere else
+
 - `H:\Games\DC2DM\DC2DMMesTextTool_GUI and Patch\DC2DMPatch a\build\Released\DC2DMLauncher.exe`
 
 This patch is built to work with that launcher. Running the game directly from `DC2DM.EXE` may not load the patch properly.
