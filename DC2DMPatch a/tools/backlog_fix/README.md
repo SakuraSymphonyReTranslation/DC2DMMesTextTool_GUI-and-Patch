@@ -1,6 +1,6 @@
 # DC2DM backlog portraits and four-line layout
 
-The refreshed `Released_patch.rar` includes a DC2DM EXE with translated speaker-name mappings, the blank Yoshiyuki portrait, Yuto/Yuki mappings, and 24px dialogue/backlog line pitch. These changes live in the EXE; the C# converter preserves names/newlines and the DLL provides the runtime patch settings.
+`Released_patch.rar` includes a DC2DM EXE with translated speaker-name mappings, the blank Yoshiyuki portrait, Yuto/Yuki mappings, and 24px dialogue/backlog line pitch. These changes live in the EXE; the C# converter preserves names/newlines and the DLL provides the runtime patch settings.
 
 `<GameDir>` means your installation folder containing `DC2DM.EXE`. Run `<GameDir>\DC2DMLauncher.exe` after installing the release. See the [main guide](../../../README.md) for installation and word wrap.
 
