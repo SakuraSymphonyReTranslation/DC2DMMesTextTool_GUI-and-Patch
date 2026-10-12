@@ -1,7 +1,7 @@
 namespace DC2DMMesTextTool;
 
 /// <summary>
-/// Script configuration for different Circus engine games.
+/// Script configuration for Da Capo 2 Dearest Marriage.
 /// Based on MesTextTool's script_info.cpp
 /// </summary>
 public class ScriptInfo
@@ -48,46 +48,9 @@ public class ScriptInfo
         OutputOpcodes = new byte[] { 0x44 }
     };
 
-    /// <summary>
-    /// D.C.4 ~Da Capo 4~ configuration
-    /// Note: DC4 uses Offset2 (labelCount * 6 + 4) per original C++ MesTextTool
-    /// </summary>
-    public static readonly ScriptInfo DC4 = new()
-    {
-        Name = "dc4",
-        Version = 0xAAB6,
-        OffsetType = OffsetType.Offset2,  // FIXED: Was incorrectly set to Offset1
-        Uint8x2 = (0x00, 0x3A),
-        Uint8Str = (0x3B, 0x47),
-        String = (0x48, 0x68),
-        EncStr = (0x69, 0x6D),
-        Uint16x4 = (0x6E, 0xFF),
-        EncryptionKey = 0x20,
-        OutputOpcodes = new byte[] { 0x5D }
-    };
-    
-    /// <summary>
-    /// D.C.4 Plus Harmony configuration
-    /// </summary>
-    public static readonly ScriptInfo DC4PH = new()
-    {
-        Name = "dc4ph",
-        Version = 0xABB6,
-        OffsetType = OffsetType.Offset2,
-        Uint8x2 = (0x00, 0x3A),
-        Uint8Str = (0x3B, 0x47),
-        String = (0x48, 0x68),
-        EncStr = (0x69, 0x6D),
-        Uint16x4 = (0x6E, 0xFF),
-        EncryptionKey = 0x20,
-        OutputOpcodes = new byte[] { 0x5D }
-    };
-    
-    /// <summary>
-    /// All known script configurations
-    /// </summary>
-    public static readonly ScriptInfo[] AllInfos = { DC2DM, DC4, DC4PH };
-    
+    /// <summary>Supported configuration: Da Capo 2 Dearest Marriage.</summary>
+    public static readonly ScriptInfo[] AllInfos = { DC2DM };
+
     /// <summary>
     /// Query script info by name
     /// </summary>
@@ -106,35 +69,13 @@ public class ScriptInfo
             return null;
             
         int labelCount = BitConverter.ToInt32(data, 0);
-        
-        // Try offset2 first (DC2DM/DC4 style)
-        int offset2 = labelCount * 6 + 4;
-        if (data.Length > offset2 + 2)
-        {
-            ushort version2 = BitConverter.ToUInt16(data, offset2);
-            // Check magic at offset 4 (should be 0x03)
-            if (data.Length > 4 && BitConverter.ToInt32(data, 4) == 0x03)
-            {
-                var info = AllInfos.FirstOrDefault(i => 
-                    i.OffsetType == OffsetType.Offset2 && i.Version == version2);
-                if (info != null)
-                    return info;
-            }
-        }
-        
-        // Try offset1 (older games)
-        int offset1 = labelCount * 4 + 4;
-        if (data.Length > offset1 + 2)
-        {
-            ushort version1 = BitConverter.ToUInt16(data, offset1);
-            var info = AllInfos.FirstOrDefault(i => 
-                i.OffsetType == OffsetType.Offset1 && i.Version == version1);
-            if (info != null)
-                return info;
-        }
-        
-        // Default to DC2DM if can't detect
-        return DC2DM;
+        long offset = (long)labelCount * 6 + 4;
+        if (labelCount < 1 || offset + 3 > data.Length ||
+            BitConverter.ToInt32(data, 4) != 3)
+            return null;
+
+        return BitConverter.ToUInt16(data, (int)offset) == DC2DM.Version
+            ? DC2DM : null;
     }
 }
 

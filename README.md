@@ -1,156 +1,167 @@
-# DC2DM MES Text Tool (GUI + CLI)
+# DC2DM MES Text Tool (GUI + CLI) and Patch
 
-A Windows tool for converting **Da Capo 2 Dearest Marriage** script files between:
+Windows tools for **Da Capo 2 Dearest Marriage** (`dc2dm`): export MES scripts to JSON, import translated JSON into the original MES, and run the game with the custom patch and launcher. Only DC2DM is supported.
 
-- `MES -> JSON` (export)
-- `JSON -> MES` (import)
+## Downloads and requirements
 
-It supports both:
+Download both archives from [GitHub Releases](https://github.com/SakuraSymphonyReTranslation/DC2DMMesTextTool_GUI-and-Patch/releases):
 
-- Single file conversion
-- Batch conversion (entire folder)
+| Archive | Contents |
+| --- | --- |
+| `DC2DMMesTextTool_GUI.rar` | GUI/CLI converter, .NET companion files, and this guide |
+| `Released_patch.rar` | Game EXE with backlog/line-pitch fixes, patch DLL, custom launcher, default INI, icon, scenario titles, and this guide |
 
-## Tool Location
+The converter requires **Windows and the .NET 8 Desktop Runtime**. Keep its EXE, DLL, `.deps.json`, and `.runtimeconfig.json` together. The patch requires an existing DC2DM installation; the archive does not contain the full game or a complete translation.
 
-Main executable:
+## Directory names in this guide
 
-- `bin\Release\net8.0-windows\DC2DMMesTextTool_GUI.exe`
+- **`<GameDir>`**: your game installation folder, containing `DC2DM.EXE`.
+- **`<ToolDir>`**: the folder where you extracted `DC2DMMesTextTool_GUI.rar`.
+- **`<RepoDir>`**: the source repository root, containing this README and the `.csproj` file.
 
-## Output Build Locations (Patch + Launcher)
+These are placeholders for folders you choose, not literal names or required drive letters. A *repository root* means `<RepoDir>`; a *game directory* means `<GameDir>`.
 
-Patch and launcher build output:
+## Installation: custom launcher required
 
-- `DC2DMPatch a\build`
+1. Close the game and back up the files you will replace, especially `DC2DM.EXE` and `DC2DM.ini`.
+2. Extract `Released_patch.rar` to a temporary folder. Copy `DC2DM.EXE`, `DC2DMPatch.dll`, and `DC2DMLauncher.exe` into `<GameDir>`. The included EXE contains the backlog portrait mappings and 24px dialogue/backlog line pitch described below.
+3. Use the supplied `DC2DM.ini` for a new installation. Keep your existing working INI to preserve font/layout settings. Copy the scenario-title JSON and icon if needed for your setup.
+4. Place translation files in the appropriate `id_Data` or `eng_data` folders for your patch configuration.
+5. Run **`<GameDir>\DC2DMLauncher.exe`**. Starting `DC2DM.EXE` directly may bypass the patch.
 
-Ready-to-use release output:
+The launcher embeds the locale-support DLLs. Keep the launcher and patch beside the game EXE. Rebuilding the patch DLL alone does not apply the separate EXE fixes.
 
-- `DC2DMPatch a\build\Released`
+## Word wrap and four-line messages
 
-## Important: Custom Launcher Required
+GUI single import, GUI batch import, and CLI import use **46 half-width cells** by default. At the normal 22px font size, this is 506 native pixels and fits the narrower backlog body. Japanese/full-width glyphs occupy more space than Latin half-width characters: the setting measures display width, not a simple character count.
 
-To use this patch correctly, you must launch the game using the custom launcher:
+- GUI import and CLI `batch-import -w` allow widths from **10 to 46**. CLI single `import` uses the fixed default of 46.
+- Dialogue and narration allow **at most four lines** after wrapping.
+- Speaker/nameplate entries are **never word-wrapped**. Choice and UI labels retain their original formatting.
+- Explicit newlines are preserved; CRLF, CR, and literal `\n` are normalized.
+- More than four lines, an unbreakable word wider than the selected width, or a mismatched MES entry count causes that file's import to fail before writing its output. The error identifies the affected entry.
+- Shorten/reword the message or revise its newlines when validation fails. The converter never truncates text or shrinks the font to force it to fit. Other files in a batch may still succeed.
 
-For example - `H:\Games\DC2DM` is your game directory
-put - `DC2DMMesTextTool_GUI and Patch` or somewhere else
+The old width examples of 60 and the old CLI default of 28 no longer apply.
 
-- `H:\Games\DC2DM\DC2DMMesTextTool_GUI and Patch\DC2DMPatch a\build\Released\DC2DMLauncher.exe`
-
-This patch is built to work with that launcher. Running the game directly from `DC2DM.EXE` may not load the patch properly.
-
-## Features
-
-- GUI mode (double-click executable)
-- CLI mode (run commands from terminal)
-- Drag-and-drop support for `.mes` and folders
-- Shift-JIS handling for game script text
-
-## JSON Format
-
-Exported JSON is an array of entries like:
+## JSON format and speaker names
 
 ```json
 [
-  { "name": "Character Name", "message": "Dialogue line" },
-  { "message": "Narration line" }
+  { "name": "Otome", "message": "「Dialogue line」" },
+  { "message": "Narration or inner monologue line" }
 ]
 ```
 
-## Quick Start (GUI)
+DC2DM stores the speaker and dialogue as consecutive MES text entries. Export combines a short speaker name immediately followed by quoted dialogue (`「...」`, `『...』`, or `“...”`) into one `name`/`message` object. Import expands it back into the original two entries. Legacy JSON with separate speaker and dialogue `message` objects remains supported.
 
-1. Open `DC2DMMesTextTool_GUI.exe`.
-2. Use **Single File** tab for one file.
-3. Use **Batch** tab for folder-based conversion.
-4. Check the log panel at the bottom for success/error details.
+Keep speaker names exact: `Yuto` / `勇斗`, `Yuki` / `由姫`, and `Yuuki` / `桜姫` are distinct backlog mappings. Yoshiyuki / 義之 uses the original blank portrait. The released EXE includes these mappings and 24px line spacing. MES/JSON conversion preserves names and line breaks but does not modify the EXE. See [backlog patch documentation](DC2DMPatch%20a/tools/backlog_fix/README.md) for rebuild instructions.
 
-### Single File: Export (MES -> JSON)
+## Quick start: GUI
 
-1. In **Input MES/JSON**, select a `.mes` file.
-2. In **Output JSON/MES**, set output `.json` path (optional).
-3. Click **Export (MES -> JSON)**.
+1. Open `<ToolDir>\DC2DMMesTextTool_GUI.exe`.
+2. Choose **Single File** or **Batch**.
+3. Select the input file/folder and output destination.
+4. For import, set **Word Wrap Width** (default **46**) and check the log for validation errors.
 
-### Single File: Import (JSON -> MES)
+### Export MES to JSON
 
-Important behavior in current GUI:
+In **Single File**, choose a `.mes` file in **Input MES/JSON**, optionally set **Output JSON/MES**, and click **Export (MES -> JSON)**. With no output path, the JSON uses the same name beside the MES.
 
-- GUI auto-detects original MES by replacing `.json` with `.mes` in the same folder.
-- If matching original `.mes` is not found, import will fail.
+### Import JSON to MES
 
-Steps:
+For **Single File**, put the original `.mes` beside the translated `.json`, with the same base filename. The GUI finds the original by replacing `.json` with `.mes`; import fails if it is missing. Set an explicit output path to retain your original MES, then click **Import (JSON -> MES)**.
 
-1. In **Input MES/JSON**, select `.json`.
-2. Make sure original `.mes` with the same base filename is in the same folder.
-3. Set output `.mes` path (optional).
-4. Set **Word Wrap Width** (default: `60`) if 60 isn't enough you can change its value to fit textbox.
-5. Click **Import (JSON -> MES)**.
+For **Batch**, provide the JSON folder, original MES folder, and output folder. Files are paired by name, such as `scene01.json` with `scene01.mes`. A missing original is reported and skipped.
 
-## CLI Tutorial
+## CLI tutorial
 
-Open terminal in:
+Open PowerShell in `<ToolDir>`, or `<RepoDir>\bin\Release\net8.0-windows` for a source build. These examples use a `scripts` working folder beside the tool; replace paths with your own. Use separate output folders to retain originals.
 
-- `bin\Release\net8.0-windows`
-
-Use:
-
-- `./DC2DMMesTextTool_GUI.exe <command> ...`
-
-### 1) Export Single File (MES -> JSON)
+### Export one file
 
 ```powershell
-./DC2DMMesTextTool_GUI.exe export "H:\path\script.mes" "H:\path\script.json"
+.\DC2DMMesTextTool_GUI.exe export ".\scripts\original\scene01.mes" ".\scripts\json\scene01.json"
 ```
 
-If output path is omitted, output defaults to same name with `.json`.
+The output argument is optional; it defaults to the input filename with `.json`.
 
-### 2) Import Single File (JSON -> MES)
+### Import one file
 
 ```powershell
-./DC2DMMesTextTool_GUI.exe import "H:\path\script.json" "H:\path\script.mes" "H:\path\script_new.mes"
+.\DC2DMMesTextTool_GUI.exe import ".\scripts\json\scene01.json" ".\scripts\original\scene01.mes" ".\scripts\rebuilt\scene01.mes"
 ```
 
-Notes:
+The original MES is required. With no output argument, the output is `output_scene01.mes` beside the original. Single CLI import uses width **46**.
 
-- The second argument (`original.mes`) is required.
-- For single CLI import, wrap width uses internal default (`28`).
-
-### 3) Batch Export (Folder) (MES -> JSON)
+### Batch export
 
 ```powershell
-./DC2DMMesTextTool_GUI.exe batch-export "H:\path\mes_folder" "H:\path\json_output"
+.\DC2DMMesTextTool_GUI.exe batch-export ".\scripts\original" ".\scripts\json"
 ```
 
-If output folder is omitted, defaults to `mes_folder\json_output`.
+With no output folder, the tool uses `json_output` inside the input folder.
 
-### 4) Batch Import (Folder) (JSON -> MES)
+### Batch import
 
 ```powershell
-./DC2DMMesTextTool_GUI.exe batch-import "H:\path\json_folder" "H:\path\mes_folder" "H:\path\mes_output" -w 60
+.\DC2DMMesTextTool_GUI.exe batch-import ".\scripts\json" ".\scripts\original" ".\scripts\rebuilt" -w 46
 ```
 
-Arguments:
+`-w` is optional (default **46**, allowed **10–46**). With no output folder, the tool uses `mes_output` inside the original MES folder.
 
-- `json_folder`: translated `.json` files
-- `mes_folder`: original `.mes` files used as base
-- `mes_output`: output folder for rebuilt `.mes`
-- `-w`: wrap width (optional, default `60`)  if 60 isn't enough you can change its value to fit textbox.
+### Normalize legacy JSON
 
-Matching is done by filename:
+```powershell
+.\DC2DMMesTextTool_GUI.exe normalize-json ".\scripts\json"
+```
 
-- `scene01.json` -> uses `scene01.mes`
+This combines legacy consecutive speaker/dialogue objects. Before replacing JSON files, the tool creates a timestamped full backup beside the source folder. Supply an explicit backup folder as the second argument if desired.
 
-If original MES file is missing, that JSON file is skipped.
+### Drag and drop
 
-## Drag & Drop
+- Drop a `.mes` file onto the EXE to export JSON beside it.
+- Drop a folder onto the EXE to batch-export its MES files.
 
-- Drop a `.mes` file onto the EXE: auto export to `.json` with same filename.
-- Drop a folder onto the EXE: auto batch export all `.mes` files in that folder.
+## Build from source
 
-## Troubleshooting
+Clone with submodules so the patch has its Detours dependency:
 
-- **"original MES not found"**: ensure matching `.mes` exists for each `.json`.
-- **Import output looks broken**: try different wrap width for batch import (`-w`).
-- **No output file**: check write permission for output folder.
+```powershell
+git clone --recurse-submodules https://github.com/SakuraSymphonyReTranslation/DC2DMMesTextTool_GUI-and-Patch.git
+```
 
-## Build & Release Summary
+For an existing checkout, run `git submodule update --init --recursive` from `<RepoDir>`.
 
-- Active build folder: `DC2DMPatch a\build`
-- Final ready release folder: `DC2DMPatch a\build\Released`
+The GUI/CLI requires the **.NET 8 SDK**. Run from `<RepoDir>`:
+
+```powershell
+dotnet build .\DC2DMMesTextTool_GUI.csproj -c Release
+```
+
+The patch/launcher requires **Visual Studio 2022, Desktop development with C++, a Windows SDK, and CMake on PATH**:
+
+```powershell
+& ".\DC2DMPatch a\build.bat"
+```
+
+| Component | Source/output relative to `<RepoDir>` |
+| --- | --- |
+| Converter executable | `bin\Release\net8.0-windows\DC2DMMesTextTool_GUI.exe` |
+| Patch source | `DC2DMPatch a\src\dc2dmpatch.cpp` |
+| Win32 patch/launcher output | `DC2DMPatch a\build` |
+| Distribution files | `DC2DMPatch a\build\Released` |
+| Patch settings | `DC2DM.ini`, beside the installed game EXE |
+
+Builds do not install files into `<GameDir>`. The separate [C++ text tool](MesTextTool-MesTextToolVer1.3.6/README.md) is also restricted to DC2DM; the word-wrap workflow above belongs to the C# GUI/CLI converter.
+
+## Verification and troubleshooting
+
+The refreshed converter passed **519 checks**, including eight Japanese/translated speaker names, four-line text, legacy JSON, repeated byte-identical MES imports, and rejection of unsupported MES versions without overwriting existing output. The patch and launcher build successfully; this publication has not repeated an in-game playtest with the newly built DLL/launcher.
+
+- **Original MES not found:** provide the original with the same base filename. GUI single import requires it beside the JSON.
+- **More than four lines / width exceeded:** shorten the message or revise its newlines; use width 10–46.
+- **Wrong speaker portrait:** preserve the exact `name` and use the released EXE with its backlog mappings.
+- **Tool will not start:** install the .NET 8 **Desktop** Runtime and keep all converter companion files together.
+- **Patch is not loaded:** launch `<GameDir>\DC2DMLauncher.exe` with `DC2DMPatch.dll` beside it.
+- **No output:** check the log, validation errors, and write access to the output folder.

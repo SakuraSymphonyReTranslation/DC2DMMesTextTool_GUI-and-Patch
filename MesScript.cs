@@ -31,7 +31,8 @@ public class MesScript
     public void Load(byte[] data, ScriptInfo? info = null)
     {
         _rawData = data;
-        _info = info ?? ScriptInfo.QueryFromData(data) ?? ScriptInfo.DC2DM;
+        _info = info ?? ScriptInfo.QueryFromData(data)
+            ?? throw new InvalidDataException("Unsupported MES: expected Da Capo 2 Dearest Marriage (dc2dm).");
         
         ParseStructure();
         TokenizeBytecode();
@@ -61,7 +62,7 @@ public class MesScript
             throw new InvalidDataException("Invalid MES structure");
             
         // Calculate ACTUAL number of labels based on available header space
-        // DC4 labels start at 8.
+        // DC2DM labels start at 8.
         int labelStartOffset = 4;
         if ((int)_info.OffsetType == (int)OffsetType.Offset2)
         {
@@ -90,7 +91,7 @@ public class MesScript
         // Check if header format implies version length
         if ((int)_info.OffsetType == (int)OffsetType.Offset2)
         {
-            return 3; // DC4 always uses 3 bytes (Version + Padding)
+            return 3; // DC2DM always uses 3 bytes (Version + Padding)
         }
         else if ((int)_info.OffsetType == (int)OffsetType.Offset1)
         {
@@ -177,6 +178,9 @@ public class MesScript
             if (_info.IsInSection(_info.EncStr, token.Opcode))
             {
                 text = DecryptString(token.Offset + 1, encoding);
+                // The patch displays encrypted ASCII underscores as spaces.
+                // Decode that escape so MES -> JSON -> MES wraps whole words.
+                if (_info.Name == "dc2dm") text = text.Replace('_', ' ');
                 isEncrypted = true;
             }
             else if (_info.OutputOpcodes.Contains(token.Opcode))
@@ -221,7 +225,7 @@ public class MesScript
     public List<TextEntry> ExtractTextPatternBased(Encoding encoding)
     {
         // Fallback for when opcode extraction fails.
-        // For DC4, strict opcode extraction is preferred.
+        // For DC2DM, strict opcode extraction is preferred.
         // Returning empty list to satisfy build; if opcode extraction fails, we have bigger issues.
         return new List<TextEntry>();
     }
@@ -237,12 +241,18 @@ public class MesScript
             var origEntry = originalEntries[i];
             var text = translatedEntries[i].Message;
             
-            if (formatter != null && !string.IsNullOrEmpty(text))
+            if (formatter != null &&
+                !translatedEntries[i].IsNameplate &&
+                !string.IsNullOrEmpty(text))
             {
-                int originalMax = formatter.MaxLineLength;
-                if (origEntry.Opcode == 0x6A) formatter.MaxLineLength = 1000;
-                text = formatter.Format(text);
-                formatter.MaxLineLength = originalMax;
+                // Only encrypted body text uses the dialogue/backlog layout.
+                // Choice labels and other UI strings retain their original text.
+                if (origEntry.IsEncrypted)
+                {
+                    text = formatter.Format(text);
+                    if (_info.Name == "dc2dm")
+                        TextFormatter.ValidateBody(text, $"MES text entry {i + 1}", formatter.MaxLineLength);
+                }
             }
             
             translationMap[origEntry.Offset] = text;
@@ -270,7 +280,7 @@ public class MesScript
         {
             long currentPos = bytecodeOutput.Position; // Position relative to start of bytecode
             
-            // C++ Logic: "Update label if we see Opcode 0x03 or 0x04" (for Offset2/DC4)
+            // C++ Logic: "Update label if we see Opcode 0x03 or 0x04" (for Offset2/DC2DM)
             if ((int)_info.OffsetType == (int)OffsetType.Offset2)
             {
                 if (token.Opcode == 0x03 || token.Opcode == 0x04)
@@ -278,14 +288,14 @@ public class MesScript
                     if (labelIndex < _labelCount)
                     {
                         // Calculate New Relative Offset 
-                        // DC4 uses offsets relative to the start of the bytecode section
+                        // DC2DM uses offsets relative to the start of the bytecode section
                         int newRelative = (int)currentPos + token.Length;
                         
                         // Read valid original label to preserve high bits (masks)
                         int oldLabel = BitConverter.ToInt32(newHeader, labelStartOffset + labelIndex * stride);
                         
                         // SAFETY: Only update if the old label looks like a valid pointer (in-bounds)
-                        // DC4 pointers are relative, so we check if it's < rawData length
+                        // DC2DM pointers are relative, so we check if it's < rawData length
                         int oldOffset = oldLabel & 0x00FFFFFF;
                         if (oldOffset < _rawData.Length) 
                         {
@@ -300,7 +310,7 @@ public class MesScript
             }
             else
             {
-                 // Fallback for non-DC4 (Offset1)
+                 // Legacy label layout fallback (Offset1)
                  int tokenAbsStart = _bytecodeOffset + versionLen + token.Offset;
                  int tokenAbsEnd = tokenAbsStart + token.Length;
                  

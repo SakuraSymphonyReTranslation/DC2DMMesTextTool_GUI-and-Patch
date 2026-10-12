@@ -15,3 +15,23 @@ DC2DMPatch a/Detours/.git/
 # OS/editor
 Thumbs.db
 .DS_Store
+
+# Generated build caches
+DC2DMPatch a/build/CMakeFiles/
+DC2DMPatch a/build/Release/
+DC2DMPatch a/build/*.vcxproj*
+DC2DMPatch a/build/*.sln
+DC2DMPatch a/build/CMakeCache.txt
+DC2DMPatch a/build/cmake_install.cmake
+MesTextTool-MesTextToolVer1.3.6/MesTextTool/build/
+**/__pycache__/
+
+# Local build intermediates and verification output
+DC2DMPatch a/build/*.dir/
+DC2DMPatch a/build/Win32/
+DC2DMPatch a/build/Makefile
+DC2DMPatch a/build/*.lib
+DC2DMPatch a/build/*.exp
+DC2DMPatch a/tools/backlog_fix/out/
+DC2DMPatch a/tools/backlog_fix/converter_tests/bin/
+DC2DMPatch a/tools/backlog_fix/converter_tests/obj/

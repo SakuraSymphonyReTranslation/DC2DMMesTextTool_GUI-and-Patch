@@ -39,6 +39,7 @@ static class Program
                 "import" => HandleImport(processor, args.Skip(1).ToArray()),
                 "batch-export" => HandleBatchExport(processor, args.Skip(1).ToArray()),
                 "batch-import" => HandleBatchImport(processor, args.Skip(1).ToArray()),
+                "normalize-json" => HandleNormalizeJson(processor, args.Skip(1).ToArray()),
                 _ when File.Exists(args[0]) => HandleDragDrop(processor, args[0]),
                 _ when Directory.Exists(args[0]) => HandleDragDropFolder(processor, args[0]),
                 _ => ShowError($"Unknown command: {command}")
@@ -57,7 +58,7 @@ static class Program
     {
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("╔════════════════════════════════════════════════╗");
-        Console.WriteLine("║       DC2DM MES Text Tool v1.2 (GUI+CLI)         ║");
+        Console.WriteLine("║       DC2DM MES Text Tool v1.3 (GUI+CLI)         ║");
         Console.WriteLine("║  Based on CircusEditor and MesTextTool         ║");
         Console.WriteLine("╚════════════════════════════════════════════════╝");
         Console.ResetColor();
@@ -116,7 +117,7 @@ static class Program
         string mesFolder = args[1];
         string outputFolder = args.Length > 2 && !args[2].StartsWith("-") ? args[2] : Path.Combine(mesFolder, "mes_output");
         
-        int wrapWidth = 67;
+        int wrapWidth = TextFormatter.DefaultWrapWidth;
         for (int i = 0; i < args.Length - 1; i++)
         {
             if (args[i] == "-w" && int.TryParse(args[i + 1], out int w))
@@ -127,6 +128,18 @@ static class Program
         }
         
         return processor.BatchImport(jsonFolder, mesFolder, outputFolder, wrapWidth);
+    }
+
+    static int HandleNormalizeJson(MesToolProcessor processor, string[] args)
+    {
+        if (args.Length < 1)
+        {
+            Console.WriteLine("Usage: DC2DMMesTextTool normalize-json <json_folder> [backup_folder]");
+            return 1;
+        }
+
+        string? backupFolder = args.Length > 1 ? args[1] : null;
+        return processor.NormalizeJsonFolder(args[0], backupFolder);
     }
     
     static int HandleDragDrop(MesToolProcessor processor, string filePath)

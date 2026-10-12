@@ -61,7 +61,7 @@ namespace DC2DMMesTextTool_GUI
             btnBrowseOutput.Click += (s, e) => BrowseSaveFile(_txtSingleOutput);
 
             var lblWrap = new Label { Text = "Word Wrap Width:", Top = 90, Left = 10, Width = 100 };
-            _numSingleWrap = new NumericUpDown { Top = 90, Left = 120, Width = 60, Minimum = 10, Maximum = 100, Value = 67 }; 
+            _numSingleWrap = new NumericUpDown { Top = 90, Left = 120, Width = 60, Minimum = 10, Maximum = TextFormatter.DefaultWrapWidth, Value = TextFormatter.DefaultWrapWidth };
 
             var btnExport = new Button { Text = "Export (MES -> JSON)", Top = 130, Left = 20, Width = 150 };
             btnExport.Click += (s, e) => RunSingleExport();
@@ -95,7 +95,7 @@ namespace DC2DMMesTextTool_GUI
             btnBrowseBatchOutput.Click += (s, e) => BrowseFolder(_txtBatchOutput);
 
             var lblBatchWrap = new Label { Text = "Word Wrap Width:", Top = 120, Left = 10, Width = 100 };
-            _numBatchWrap = new NumericUpDown { Top = 120, Left = 120, Width = 60, Minimum = 10, Maximum = 100, Value = 67 };
+            _numBatchWrap = new NumericUpDown { Top = 120, Left = 120, Width = 60, Minimum = 10, Maximum = TextFormatter.DefaultWrapWidth, Value = TextFormatter.DefaultWrapWidth };
 
             var btnBatchExport = new Button { Text = "Batch Export (MES -> JSON)", Top = 160, Left = 20, Width = 180 };
             btnBatchExport.Click += (s, e) => RunBatchExport();

@@ -1,82 +1,30 @@
-# DC4 Indonesian Font Patch - Setup Guide
+# Da Capo 2 Dearest Marriage — Indonesian Patch
 
-## What We Created
+This project builds `DC2DMPatch.dll` and `DC2DMLauncher.exe` for **Da Capo 2 Dearest Marriage**.
+The DLL source is `src/dc2dmpatch.cpp`. Patch settings are stored in `DC2DM.ini` beside the game EXE.
 
-I've created a complete DC4 font patch source code at `d:\vns\DC4\DC4Patch\`:
+## Build
 
-```
-DC4Patch/
-├── CMakeLists.txt          # Build configuration
-├── src/
-│   └── dc4patch.cpp        # Main DLL source code
-├── Detours/                # Microsoft Detours library (not built)
-```
+Install Visual Studio 2022 with Desktop development with C++ and CMake, then run `build.bat`.
+It builds for Win32 and writes the patch and launcher to `build`, with distribution copies in `build/Released`.
+`build_agent.bat` and `run_build.bat` use the same build entry point.
+Building does not install files into the game folder.
 
-The patch hooks Windows APIs to enable Indonesian character display:
-- `GetGlyphOutlineA` - Replaces SJIS font with Unicode font
-- `CreateFileA` - Redirects to `id_Data/` folder for translations
-- `FindFirstFileA` - Supports file replacement
+## Installation
 
-## Problem: No C++ Compiler
+`<GameDir>` means your installation folder containing `DC2DM.EXE`.
+Close the game and back up existing files, then copy `build/Released/DC2DM.EXE`,
+`build/Released/DC2DMPatch.dll`, and `build/Released/DC2DMLauncher.exe` into `<GameDir>`.
+The released EXE includes the backlog portrait and 24px line-pitch fixes.
+Keep the existing `DC2DM.ini` to preserve font and layout settings.
+Launch the game from that folder using `DC2DMLauncher.exe`.
+The launcher embeds `LoaderDll.dll` and `LocaleEmulator.dll` for Japanese locale support.
+Place Indonesian MES translations in `<GameDir>/id_Data/MES` and English MES
+translations in `<GameDir>/eng_data/MES`; graphics and movies use the corresponding
+`GRP` and `MOVIE` subfolders.
 
-Your system doesn't have a C++ compiler installed:
-- ❌ Visual Studio - Not found
-- ❌ MinGW/GCC - Not found
-- ❌ Clang - Not found
+## Converter and backlog
 
-## Options to Proceed
-
-### Option 1: Install Visual Studio Build Tools (Recommended)
-Download and install from: https://visualstudio.microsoft.com/visual-cpp-build-tools/
-
-After installing:
-1. Open "Developer Command Prompt for VS"
-2. Navigate to `d:\vns\DC4\DC4Patch`
-3. Run:
-```batch
-cd Detours\src
-nmake
-cd ..\..
-mkdir build && cd build
-cmake .. -G "Visual Studio 17 2022" -A Win32
-cmake --build . --config Release
-```
-4. Copy `build\Release\dinput8.dll` to `d:\vns\DC4\`
-
-### Option 2: Install MinGW-w64
-Download from: https://www.mingw-w64.org/downloads/
-
-Then build with:
-```batch
-mkdir build && cd build
-cmake .. -G "MinGW Makefiles"
-cmake --build .
-```
-
-### Option 3: Contact the CircusEnginePatchs Author
-You could reach out to the DC3WY patch author (cokkeijigen) on GitHub to request a DC4 version:
-https://github.com/cokkeijigen/CircusEnginePatchs
-
-### Option 4: Simple Workaround with Locale Emulator
-For Indonesian (Latin only), you might be able to use:
-1. Install [Locale Emulator](https://github.com/xupefei/Locale-Emulator)
-2. Run DC4.EXE with Japanese locale
-3. The Latin characters might display with certain fonts
-
----
-
-## Once You Have the DLL
-
-After building `dinput8.dll`:
-
-1. Copy `dinput8.dll` to `d:\vns\DC4\` (same folder as DC4.EXE)
-2. Create folder `d:\vns\DC4\id_Data\`
-3. Place your translated `.mes` files in `id_Data/`
-4. Run DC4.EXE normally - the patch loads automatically
-
-## Testing
-
-To verify the patch is working:
-- Check if the window title changes
-- Try displaying Indonesian text in-game
-- Use right-click menu to change font if needed
+See the [project README](../README.md) for the GUI/CLI MES ↔ JSON converter.
+The DC2DM portrait and line-pitch patches are maintained in [tools/backlog_fix](tools/backlog_fix/README.md).
+They are applied to the game EXE separately; rebuilding this DLL does not replace that EXE.

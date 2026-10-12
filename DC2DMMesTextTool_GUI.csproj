@@ -11,9 +11,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DC4Patch a\**" />
-    <EmbeddedResource Remove="DC4Patch a\**" />
-    <None Remove="DC4Patch a\**" />
+    <Compile Remove="DC2DMPatch a\**" />
+    <EmbeddedResource Remove="DC2DMPatch a\**" />
+    <None Remove="DC2DMPatch a\**" />
   </ItemGroup>
 
 </Project>

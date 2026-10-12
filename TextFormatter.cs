@@ -1,173 +1,119 @@
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace DC2DMMesTextTool;
 
-/// <summary>
-/// Text formatter with word wrap functionality.
-/// Ported from C++ MesTextTool's formater class.
-/// </summary>
+/// <summary>Word wrapping in native 11px half-width cells, never font scaling.</summary>
 public class TextFormatter
 {
-    // Characters that should not appear at the start of a line
-    private static readonly HashSet<char> DisallowedAtStart = new()
+    // Backlog body starts at x=364 and ends before x=880: 46 * 11 = 506px.
+    public const int DefaultWrapWidth = 46;
+    public const int MaxBodyLines = 4;
+    public int MinLineLength { get; set; } = 18; // Retained for API compatibility.
+    public int MaxLineLength { get; set; } = DefaultWrapWidth;
+
+    private static readonly Regex Tokens = new(
+        @"@[A-Za-z][0-9]*|｛[^｝]*｝|[ \t]+|[\x21-\x7e-[\x40]]+|.", RegexOptions.Compiled);
+    private const string Closing = "。、？！’”，！～】；：）」』…,.!?;:";
+    private const string Opening = "（(「『【‘“";
+
+    public static string NormalizeNewlines(string text) =>
+        text.Replace("\r\n", "\n").Replace('\r', '\n').Replace("\\n", "\n");
+
+    private static IEnumerable<string> WrapTokens(string paragraph)
     {
-        '\u3002', '\u3001', '\uff1f', '\u2019', '\u201d', '\uff0c', '\uff01', '\uff5e', '\u3011', '\uff1b', '\uff1a', '\uff09', '\u300d', '\u300f', '\u2026', ' ', '\u3000'
-    };
-    
-    // Characters that should not appear at the end of a line
-    private static readonly HashSet<char> DisallowedAtEnd = new()
-    {
-        '\uff08', '(', '\u300c', '\u300e', '\u3010', '\u2018', '\u201c'
-    };
-    
-    public int MinLineLength { get; set; } = 18;
-    public int MaxLineLength { get; set; } = 67;
-    
-    /// <summary>
-    /// Check if text is dialogue (starts and ends with quote marks)
-    /// </summary>
-    private static bool IsTalking(string text)
-    {
-        if (text.Length < 2) return false;
-        
-        var quotes = new[] { ("\u300c", "\u300d"), ("\u300e", "\u300f"), ("\u201c", "\u201d") };
-        foreach (var (open, close) in quotes)
+        var tokens = new List<string>();
+        foreach (Match match in Tokens.Matches(paragraph))
         {
-            if (text.StartsWith(open) && text.EndsWith(close))
-                return true;
+            string token = match.Value;
+            if (token.Length == 1 && Closing.Contains(token[0]) && tokens.Count > 0 &&
+                !string.IsNullOrWhiteSpace(tokens[^1]) && !tokens[^1].StartsWith('@'))
+                tokens[^1] += token;
+            else
+                tokens.Add(token);
         }
-        return false;
+        return tokens;
     }
-    
-    /// <summary>
-    /// Check if character is half-width (ASCII range)
-    /// </summary>
-    private static bool IsHalfWidth(char c)
-    {
-        return c >= 0x0000 && c <= 0x007F;
-    }
-    
-    /// <summary>
-    /// Get character width for line counting (half-width = 1.0, full-width = 2.0)
-    /// </summary>
-    private static float GetCharWidth(char c)
-    {
-        return IsHalfWidth(c) ? 1.0f : 2.0f;
-    }
-    
-    /// <summary>
-    /// Format text with word wrapping.
-    /// </summary>
+
     public string Format(string text)
     {
-        if (string.IsNullOrEmpty(text))
-            return text;
-        
-        // Remove existing line breaks first
-        text = text.Replace("\\n　", "").Replace("\\n", "");
-        
-        if (text.Length <= MinLineLength)
-            return text;
-        
-        bool isTalking = IsTalking(text);
-        string lineBreak = "\n";
-        float lineBreakCount = 0.0f;
-        
-        var result = new StringBuilder();
-        float lineCharCount = 0;
-        int index = 0;
-        
-        while (index < text.Length)
+        if (string.IsNullOrEmpty(text)) return text;
+        if (MaxLineLength < 1) throw new ArgumentOutOfRangeException(nameof(MaxLineLength));
+        var output = new List<string>();
+        int fontSize = 22;
+        // Preserve intentional line boundaries and make repeated conversions stable.
+        foreach (string paragraph in NormalizeNewlines(text).Split('\n'))
         {
-            char thisChar = text[index];
-            
-            // Check if we should insert a line break
-            if (lineCharCount >= MinLineLength)
+            var line = new StringBuilder();
+            double width = 0;
+            string pendingSpace = "";
+            foreach (string token in WrapTokens(paragraph))
             {
-                if (!DisallowedAtStart.Contains(thisChar))
+                if (token[0] == '@' && token.Length >= 2 && char.IsLetter(token[1]))
                 {
-                    result.Append(lineBreak);
-                    lineCharCount = lineBreakCount;
+                    line.Append(token);
+                    fontSize = token switch { "@s" => 16, "@m" => 22, "@l" => 32, "@r" => 12, "@u" => 9, _ => fontSize };
+                    continue;
                 }
-            }
-            
-            // Handle control codes like @t90@d1 - skip them for width calculation
-            if (thisChar == '@' && index + 1 < text.Length)
-            {
-                // Find end of control code
-                int codeEnd = index;
-                while (codeEnd < text.Length && text[codeEnd] != ' ' && !char.IsWhiteSpace(text[codeEnd]))
+                if (token.All(c => c == ' ' || c == '\t'))
                 {
-                    if (codeEnd > index && !char.IsLetterOrDigit(text[codeEnd]) && text[codeEnd] != '@')
-                        break;
-                    codeEnd++;
-                    if (codeEnd - index > 10) break; // Safety limit
+                    pendingSpace += token.Replace("\t", " ");
+                    continue;
                 }
-                
-                // Copy control code without counting width
-                string code = text.Substring(index, codeEnd - index);
-                result.Append(code);
-                index = codeEnd;
-                continue;
-            }
-            
-            // Handle half-width character sequences (English words)
-            if (IsHalfWidth(thisChar) && thisChar != ' ')
-            {
-                // Find end of half-width sequence
-                int seqEnd = index;
-                while (seqEnd < text.Length && IsHalfWidth(text[seqEnd]) && text[seqEnd] != ' ')
+                double CellWidth(char c) => (c <= 0x7f ? fontSize / 2 : fontSize) / 11.0;
+                double tokenWidth = token.Sum(CellWidth);
+                double gapWidth = pendingSpace.Length * (fontSize / 2) / 11.0;
+                if (width > 0 && width + gapWidth + tokenWidth > MaxLineLength)
                 {
-                    seqEnd++;
+                    if (!(token.Length == 1 && Closing.Contains(token[0])))
+                    {
+                        string completed = line.ToString();
+                        string carry = "";
+                        if (completed.Length > 0 && Opening.Contains(completed[^1]))
+                        {
+                            carry = completed[^1].ToString();
+                            completed = completed[..^1];
+                        }
+                        output.Add(completed.TrimEnd());
+                        line.Clear();
+                        line.Append(carry);
+                        width = carry.Sum(CellWidth);
+                        pendingSpace = "";
+                        gapWidth = 0;
+                    }
                 }
-                
-                string word = text.Substring(index, seqEnd - index);
-                float wordWidth = (float)word.Length;
-                
-                // Check if word fits on current line
-                if (lineCharCount + wordWidth >= MaxLineLength && lineCharCount > 0)
-                {
-                    result.Append(lineBreak);
-                    lineCharCount = lineBreakCount;
-                }
-                
-                result.Append(word);
-                lineCharCount += wordWidth;
-                index = seqEnd;
-                continue;
+                line.Append(pendingSpace);
+                line.Append(token);
+                width += gapWidth + tokenWidth;
+                pendingSpace = "";
             }
-            
-            // Full-width character
-            if (!IsHalfWidth(thisChar))
-            {
-                lineCharCount += 2.0f;
-            }
-            else if (thisChar == ' ')
-            {
-                lineCharCount += 1.0f;
-            }
-            
-            // Check max length for forced break
-            if (lineCharCount >= MaxLineLength)
-            {
-                if (!DisallowedAtStart.Contains(thisChar) && !DisallowedAtEnd.Contains(thisChar))
-                {
-                    result.Append(lineBreak);
-                    lineCharCount = lineBreakCount;
-                }
-            }
-            
-            // Check for line break before opening brackets
-            if (lineCharCount >= MinLineLength && DisallowedAtEnd.Contains(thisChar))
-            {
-                result.Append(lineBreak);
-                lineCharCount = isTalking ? 2.0f : 1.0f;
-            }
-            
-            result.Append(thisChar);
-            index++;
+            line.Append(pendingSpace);
+            output.Add(line.ToString().TrimEnd());
         }
-        
-        return result.ToString();
+        return string.Join("\n", output);
+    }
+
+    public static void ValidateBody(string text, string location, int widthLimit)
+    {
+        string[] lines = text.Split('\n');
+        if (lines.Length > MaxBodyLines)
+            throw new InvalidDataException($"{location}: {lines.Length} lines after wrapping; maximum is {MaxBodyLines}. Shorten/reword this message or adjust its explicit newlines. No text was truncated and no MES was written.");
+        int fontSize = 22;
+        for (int i = 0; i < lines.Length; i++)
+        {
+            double width = 0;
+            foreach (Match match in Tokens.Matches(lines[i]))
+            {
+                string token = match.Value;
+                if (token[0] == '@' && token.Length >= 2 && char.IsLetter(token[1]))
+                {
+                    fontSize = token switch { "@s" => 16, "@m" => 22, "@l" => 32, "@r" => 12, "@u" => 9, _ => fontSize };
+                    continue;
+                }
+                width += token.Sum(c => (c <= 0x7f ? fontSize / 2 : fontSize) / 11.0);
+            }
+            if (width > widthLimit + 0.001)
+                throw new InvalidDataException($"{location}, line {i + 1}: exceeds width {widthLimit}. Reword the long word or adjust the line break. No text was truncated and no MES was written.");
+        }
     }
 }

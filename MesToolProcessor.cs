@@ -54,23 +54,10 @@ namespace DC2DMMesTextTool
                 
                 var processedEntries = ProcessEntries(entries);
                 
-                var outputList = new List<object>();
-                foreach (var entry in processedEntries)
-                {
-                    if (!string.IsNullOrEmpty(entry.Name))
-                    {
-                        outputList.Add(new { name = entry.Name, message = entry.Message });
-                    }
-                    else
-                    {
-                        outputList.Add(new { message = entry.Message });
-                    }
-                }
-                
-                string json = JsonSerializer.Serialize(outputList, JsonOptions);
+                string json = JsonSerializer.Serialize(processedEntries, JsonOptions);
                 File.WriteAllText(outputPath, json, Encoding.UTF8);
                 
-                LogMessage($"OK ({outputList.Count} entries)");
+                LogMessage($"OK ({processedEntries.Count} entries)");
                 return 0;
             }
             catch (Exception ex)
@@ -82,10 +69,146 @@ namespace DC2DMMesTextTool
 
         private List<TextEntry> ProcessEntries(List<TextEntry> entries)
         {
-            return entries;
+            var processed = new List<TextEntry>(entries.Count);
+
+            for (int i = 0; i < entries.Count; i++)
+            {
+                var current = entries[i];
+
+                // DC2DM stores a speaker name and its spoken line as two
+                // consecutive text entries in the MES bytecode. Present that
+                // pair as one conventional JSON dialogue object:
+                // { "name": "Otome", "message": "「...」" }
+                if (i + 1 < entries.Count &&
+                    IsLikelySpeakerName(current.Message) &&
+                    IsDialogue(entries[i + 1].Message))
+                {
+                    var dialogue = entries[++i];
+                    processed.Add(new TextEntry
+                    {
+                        Name = current.Message.Trim(),
+                        Message = dialogue.Message,
+                        Offset = dialogue.Offset,
+                        OriginalLength = dialogue.OriginalLength,
+                        Opcode = dialogue.Opcode,
+                        IsEncrypted = dialogue.IsEncrypted,
+                        IsChoice = dialogue.IsChoice
+                    });
+                    continue;
+                }
+
+                processed.Add(current);
+            }
+
+            return processed;
         }
 
-        public int ImportJsonToMes(string jsonPath, string originalMesPath, string outputPath, int wrapWidth = 28)
+        private static bool IsDialogue(string? text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return false;
+
+            string value = text.TrimStart();
+            return value.StartsWith("「", StringComparison.Ordinal) ||
+                   value.StartsWith("『", StringComparison.Ordinal) ||
+                   value.StartsWith("“", StringComparison.Ordinal);
+        }
+
+        private static bool IsLikelySpeakerName(string? text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return false;
+
+            string value = text.Trim();
+
+            // Names in this engine are short, single-line labels. These
+            // guards prevent a narration sentence from being consumed as a
+            // name merely because the next entry happens to be dialogue.
+            if (value.Length > 40 || value.Contains('\n') || value.Contains('\r'))
+                return false;
+
+            if (IsDialogue(value))
+                return false;
+
+            // Anonymous/uncertain nameplates are used by DC2DM before a
+            // character identity is revealed (for example "？？？" or
+            // "Otome？"). Treat the trailing question mark as part of the
+            // nameplate, while still rejecting sentence-like punctuation.
+            if (value.All(c => c == '?' || c == '？'))
+                return true;
+
+            string nameForValidation = value.TrimEnd('?', '？');
+            if (nameForValidation.Length == 0)
+                return false;
+
+            char[] sentenceMarkers =
+            {
+                '.', ',', ':', ';', '!',
+                '。', '、', '，', '：', '；', '！', '…',
+                '「', '」', '『', '』', '“', '”'
+            };
+
+            if (nameForValidation.IndexOfAny(sentenceMarkers) >= 0 ||
+                nameForValidation.Contains('?') ||
+                nameForValidation.Contains('？'))
+                return false;
+
+            int wordCount = nameForValidation.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length;
+            return wordCount <= 5;
+        }
+
+        public int NormalizeJsonFolder(string folderPath, string? backupFolder = null)
+        {
+            if (!Directory.Exists(folderPath))
+            {
+                LogError($"JSON folder not found: {folderPath}");
+                return 1;
+            }
+
+            string[] jsonFiles = Directory.GetFiles(folderPath, "*.json");
+            if (jsonFiles.Length == 0)
+            {
+                LogMessage("No JSON files found.");
+                return 0;
+            }
+
+            backupFolder ??= folderPath.TrimEnd(Path.DirectorySeparatorChar) +
+                "_backup_before_dialog_merge_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            Directory.CreateDirectory(backupFolder);
+
+            int changedFiles = 0;
+            int mergedPairs = 0;
+
+            foreach (string jsonPath in jsonFiles)
+            {
+                string json = File.ReadAllText(jsonPath, Encoding.UTF8);
+                var entries = JsonSerializer.Deserialize<List<TextEntry>>(json)
+                    ?? new List<TextEntry>();
+                var processed = ProcessEntries(entries);
+                int mergedInFile = entries.Count - processed.Count;
+
+                File.Copy(jsonPath, Path.Combine(backupFolder, Path.GetFileName(jsonPath)), true);
+
+                if (mergedInFile <= 0)
+                    continue;
+
+                string temporaryPath = jsonPath + ".dialog-merge.tmp";
+                string normalizedJson = JsonSerializer.Serialize(processed, JsonOptions);
+                File.WriteAllText(temporaryPath, normalizedJson, new UTF8Encoding(false));
+                _ = JsonSerializer.Deserialize<List<TextEntry>>(
+                    File.ReadAllText(temporaryPath, Encoding.UTF8))
+                    ?? throw new InvalidDataException("Normalized JSON validation failed.");
+                File.Move(temporaryPath, jsonPath, true);
+                changedFiles++;
+                mergedPairs += mergedInFile;
+            }
+
+            LogMessage($"Normalized {changedFiles}/{jsonFiles.Length} files; merged {mergedPairs} speaker/dialogue pairs.");
+            LogMessage($"Backup: {backupFolder}");
+            return 0;
+        }
+
+        public int ImportJsonToMes(string jsonPath, string originalMesPath, string outputPath, int wrapWidth = TextFormatter.DefaultWrapWidth)
         {
             LogMessage($"Importing {Path.GetFileName(jsonPath)}... ");
             
@@ -95,20 +218,37 @@ namespace DC2DMMesTextTool
                 var entries = JsonSerializer.Deserialize<List<TextEntry>>(json) 
                     ?? new List<TextEntry>();
                 
+                if (wrapWidth < 10 || wrapWidth > TextFormatter.DefaultWrapWidth)
+                    throw new ArgumentOutOfRangeException(nameof(wrapWidth), "DC2DM dialogue/backlog wrap width must be 10..46.");
+                // Also accept legacy JSON with separate speaker/message entries.
+                entries = ProcessEntries(entries);
                 var expandedEntries = new List<TextEntry>();
                 foreach (var entry in entries)
                 {
                     if (!string.IsNullOrEmpty(entry.Name))
                     {
-                        expandedEntries.Add(new TextEntry { Message = entry.Name });
+                        expandedEntries.Add(new TextEntry
+                        {
+                            Message = entry.Name.Trim(),
+                            IsNameplate = true
+                        });
                     }
                     expandedEntries.Add(new TextEntry { Message = entry.Message });
                 }
                 
                 var script = new MesScript();
                 script.Load(originalMesPath);
+
+                int originalEntryCount = script.ExtractText(ShiftJIS).Count;
+                if (expandedEntries.Count != originalEntryCount)
+                {
+                    throw new InvalidDataException(
+                        $"JSON expands to {expandedEntries.Count} MES text entries, " +
+                        $"but the original MES contains {originalEntryCount}. " +
+                        "Do not add/remove dialogue objects or name fields.");
+                }
                 
-                var formatter = new TextFormatter { MaxLineLength = wrapWidth, MinLineLength = Math.Max(18, wrapWidth - 10) };
+                var formatter = new TextFormatter { MaxLineLength = wrapWidth };
                 byte[] newMes = script.ImportText(expandedEntries, ShiftJIS, formatter);
                 File.WriteAllBytes(outputPath, newMes);
                 

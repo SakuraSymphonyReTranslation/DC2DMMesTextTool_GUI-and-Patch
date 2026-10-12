@@ -49,6 +49,13 @@ public class TextEntry
     /// </summary>
     [JsonIgnore]
     public bool IsChoice { get; set; }
+
+    /// <summary>
+    /// Marks a separate speaker/nameplate entry during import. Nameplates are
+    /// kept as their own MES entry and must not use dialogue word wrapping.
+    /// </summary>
+    [JsonIgnore]
+    public bool IsNameplate { get; set; }
 }
 
 /// <summary>

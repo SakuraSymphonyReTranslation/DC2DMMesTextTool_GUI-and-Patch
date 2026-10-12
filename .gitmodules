@@ -1,0 +1,3 @@
+[submodule "DC2DMPatch a/Detours"]
+	path = DC2DMPatch a/Detours
+	url = https://github.com/microsoft/Detours.git

@@ -1,39 +1,23 @@
 @echo off
-echo ==========================================
-echo Building DC4 Patch (Launcher + DLL)
-echo ==========================================
-
-if exist build rmdir /s /q build
-mkdir build
-cd build
-
-echo [1/2] Configuring CMake...
-cmake .. -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release
-if %errorlevel% neq 0 (
-    echo [ERROR] CMake failed.
-    pause
-    exit /b %errorlevel%
-)
-
-echo [2/2] Compiling...
-nmake
-if %errorlevel% neq 0 (
-    echo [ERROR] Compilation failed.
-    pause
-    exit /b %errorlevel%
-)
-
-echo.
-echo ==========================================
-echo [SUCCESS] Build completed!
-echo ==========================================
-echo.
-echo Output files:
-echo   - build\DC4Launcher.exe
-echo   - build\DC4Patch.dll
-echo.
-echo Installation:
-echo   1. Copy BOTH files to the DC4 game folder
-echo   2. Run DC4Launcher.exe instead of DC4.EXE
-echo.
-pause
+setlocal
+pushd "%~dp0"
+echo Building Da Capo 2 Dearest Marriage patch and launcher...
+cmake -S . -B build -G "Visual Studio 17 2022" -A Win32
+if errorlevel 1 goto failed
+cmake --build build --config Release
+if errorlevel 1 goto failed
+if not exist "build\Released" mkdir "build\Released"
+copy /Y "build\Release\DC2DMPatch.dll" "build\DC2DMPatch.dll" >nul
+if errorlevel 1 goto failed
+copy /Y "build\Release\DC2DMLauncher.exe" "build\DC2DMLauncher.exe" >nul
+if errorlevel 1 goto failed
+copy /Y "build\DC2DMPatch.dll" "build\Released\DC2DMPatch.dll" >nul
+if errorlevel 1 goto failed
+copy /Y "build\DC2DMLauncher.exe" "build\Released\DC2DMLauncher.exe" >nul
+if errorlevel 1 goto failed
+echo Ready: build\Released\DC2DMPatch.dll and DC2DMLauncher.exe
+popd
+exit /b 0
+:failed
+popd
+exit /b 1
