@@ -16,6 +16,9 @@ DC2DMPatch a/Detours/.git/
 Thumbs.db
 .DS_Store
 
+# Local game data copied into the build folder
+DC2DMPatch a/build/AdvData/
+
 # Generated build caches
 DC2DMPatch a/build/CMakeFiles/
 DC2DMPatch a/build/Release/
