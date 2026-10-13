@@ -7,13 +7,9 @@ if errorlevel 1 goto failed
 cmake --build build --config Release
 if errorlevel 1 goto failed
 if not exist "build\Released" mkdir "build\Released"
-copy /Y "build\Release\DC2DMPatch.dll" "build\DC2DMPatch.dll" >nul
+copy /Y "build\Release\DC2DMPatch.dll" "build\Released\DC2DMPatch.dll" >nul
 if errorlevel 1 goto failed
-copy /Y "build\Release\DC2DMLauncher.exe" "build\DC2DMLauncher.exe" >nul
-if errorlevel 1 goto failed
-copy /Y "build\DC2DMPatch.dll" "build\Released\DC2DMPatch.dll" >nul
-if errorlevel 1 goto failed
-copy /Y "build\DC2DMLauncher.exe" "build\Released\DC2DMLauncher.exe" >nul
+copy /Y "build\Release\DC2DMLauncher.exe" "build\Released\DC2DMLauncher.exe" >nul
 if errorlevel 1 goto failed
 echo Ready: build\Released\DC2DMPatch.dll and DC2DMLauncher.exe
 popd
